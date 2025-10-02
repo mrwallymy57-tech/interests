@@ -172,6 +172,8 @@ body {
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
+    max-height: 200px;
+    overflow-y: auto;
 }
 
 .country-select:hover,
@@ -478,4 +480,4 @@ body {
     font-size: 13px;
     margin-top: 8px;
     text-align: right;
-    }
+                                }
